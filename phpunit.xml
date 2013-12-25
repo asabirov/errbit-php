@@ -1,0 +1,11 @@
+<phpunit colors="true" verbose="true" >
+    <testsuite name="Errbit">
+        <directory>./test</directory>
+    </testsuite>
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php"></directory>
+        </whitelist>
+    </filter>
+</phpunit>
