@@ -28,6 +28,8 @@ class Errbit_ErrorHandlers {
 
 	private $_errbit;
 
+	private $_prevExceptionHandler;
+
 	/**
 	 * Instantiate a new handler for the given client.
 	 *
@@ -64,6 +66,10 @@ class Errbit_ErrorHandlers {
 
 	public function onException($exception) {
 		$this->_errbit->notify($exception);
+
+		if ($this->_prevExceptionHandler) {
+			call_user_func($this->_prevExceptionHandler, $exception);
+		}
 	}
 
 	public function onShutdown() {
@@ -80,7 +86,7 @@ class Errbit_ErrorHandlers {
 		}
 
 		if (in_array('exception', $handlers)) {
-			set_exception_handler(array($this, 'onException'));
+			$this->_prevExceptionHandler = set_exception_handler(array($this, 'onException'));
 		}
 
 		if (in_array('fatal', $handlers)) {
