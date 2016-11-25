@@ -47,11 +47,6 @@ class Errbit_ErrorHandlers {
 
     public function onError($code, $message, $file, $line) {
         switch ($code) {
-            case E_NOTICE:
-            case E_USER_NOTICE:
-                $exception = new Errbit_Errors_Notice($message, $file, $line, debug_backtrace());
-                break;
-
             case E_WARNING:
             case E_USER_WARNING:
                 $exception = new Errbit_Errors_Warning($message, $file, $line, debug_backtrace());
